@@ -4,31 +4,45 @@ import FromGroup from '../../UI/FormGroup/FromGroup';
 import Button from '../../UI/Button/Button';
 
 const AddUser = (props) => {
-	const [username, setUsername] = useState('');
-	const [age, setAge] = useState('');
+	const [enteredUsername, setEnteredUsername] = useState('');
+	const [enteredAge, setEnteredAge] = useState('');
 
 	const handleChangeUsername = (event) => {
-		setUsername(event.target.value);
+		setEnteredUsername(event.target.value);
 	};
 
 	const handleChangeAge = (event) => {
-		setAge(event.target.value);
+		setEnteredAge(event.target.value);
 	};
 
 	const clearFormFields = () => {
-		setUsername('');
-		setAge('');
+		setEnteredUsername('');
+		setEnteredAge('');
 	};
 
 	const handleAddUserFormSubmission = (event) => {
 		event.preventDefault();
+
+		// Validate Empty Fields
+		if (enteredUsername.trim().length===0 && enteredAge.trim().length===0) {
+			return;
+		}
+
+		// Validate Age
+		if (+enteredAge < 1) {
+			return;
+		}
+
+		console.log(enteredUsername, enteredAge);
+
 		const newUser = {
-			'id': Math.random()*100,
-			'username': username,
-			'age' : age
+			id: Math.random() * 100,
+			username: enteredUsername,
+			age: enteredAge,
 		};
 		clearFormFields();
 		props.onAddUserFormSubmission(newUser);
+
 	};
 
 	return (
@@ -42,7 +56,7 @@ const AddUser = (props) => {
 					type="text"
 					name="username"
 					id="username"
-					value={username}
+					value={enteredUsername}
 					onChange={handleChangeUsername}
 				/>
 			</FromGroup>
@@ -52,7 +66,7 @@ const AddUser = (props) => {
 					type="number"
 					name="age"
 					id="age"
-					value={age}
+					value={enteredAge}
 					onChange={handleChangeAge}
 				/>
 			</FromGroup>
