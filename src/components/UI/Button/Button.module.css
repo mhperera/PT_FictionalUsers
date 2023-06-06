@@ -1,0 +1,20 @@
+.button{
+    padding: .625rem 1.25rem;
+    align-self: end;
+    margin-top: 1rem ;
+    margin-bottom: 0.5rem ;
+    width: 100%;
+    background-color: #41419c;
+    color: #fff;
+    font-size: 1rem;
+}
+
+.button:hover, .button:focus, .button:active{
+    background-color: #2f2f89;
+}
+
+@media(min-width:768px){
+    .button{
+        width: auto;
+    }
+}

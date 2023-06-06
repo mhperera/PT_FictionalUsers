@@ -1,0 +1,13 @@
+.card{
+    background-color: #f6f6f6;
+    width: 100%;
+    margin: 2rem auto;
+    padding: 2rem;
+    border-radius: .25rem;
+}
+
+@media(min-width:768px){
+    .card{
+        width: 80%;
+    }
+}
