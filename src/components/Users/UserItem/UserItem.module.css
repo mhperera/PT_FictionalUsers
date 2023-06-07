@@ -22,3 +22,15 @@
 .user-item:hover, .user-item:active, .user-item:focus{
     box-shadow: 1px 1px 5px 1px #41419c21;
 }
+
+@media (max-width:572px){
+    .user-item{
+        flex-direction: column;
+    }
+    .user-item label{
+        padding: 0.5rem 0;
+    }
+    .user-item:not(:last-child):after {
+        height: 6rem;
+    }
+}

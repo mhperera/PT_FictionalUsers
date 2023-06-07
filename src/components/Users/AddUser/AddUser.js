@@ -24,13 +24,22 @@ const AddUser = (props) => {
 		event.preventDefault();
 
 		// Validate Empty Fields
-		if (enteredUsername.trim().length===0 && enteredAge.trim().length===0) {
-			return;
+		if (
+			enteredUsername.trim().length === 0 &&
+			enteredAge.trim().length === 0
+		) {
+			return props.onError({
+				title: 'Invalid Input',
+				content: 'Please enter a valid name and age.',
+			});
 		}
 
 		// Validate Age
 		if (+enteredAge < 1) {
-			return;
+			return props.onError({
+				title: 'Invalid Age',
+				content: 'Please enter a valid age.',
+			});
 		}
 
 		const newUser = {
@@ -40,7 +49,6 @@ const AddUser = (props) => {
 		};
 		clearFormFields();
 		props.onAddUserFormSubmission(newUser);
-
 	};
 
 	return (

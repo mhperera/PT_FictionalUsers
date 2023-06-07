@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import AddUser from './components/Users/AddUser/AddUser';
 import UsersList from './components/Users/UsersList/UsersList';
 import Card from './components/UI/Card/Card';
+import Modal from './components/UI/Modal/Modal';
 
 const USER_LIST = [
 	{
@@ -32,19 +33,36 @@ const USER_LIST = [
 ];
 
 function App() {
+
 	const [userList, setUserList] = useState(USER_LIST);
+	const [error, setError] = useState();
 
 	const handleAddUserFormSubmission = (newUser) => {
-		// setUserList([...userList, newUser]);
 		setUserList((prev)=>{ return [...prev, newUser] });
 	};
 
+	const handleError = (error) => {
+		setError(error);
+	}
+
+	const handleModalClose = () => {
+		setError(null);
+	}
+
 	return (
-		<Card>
-			<h1>Fictional Users</h1>
-			<AddUser onAddUserFormSubmission={handleAddUserFormSubmission} />
-			<UsersList userList={userList}/>
-		</Card>
+		<>
+			<Card>
+				<h1>Fictional Users</h1>
+				<AddUser onAddUserFormSubmission={handleAddUserFormSubmission} onError={handleError}/>
+				<UsersList userList={userList}/>
+			</Card>
+			{ error && <Modal
+				title={error.title}
+				content={error.content}
+				onModalClose={handleModalClose}
+			/> }
+
+		</>
 	);
 }
 
