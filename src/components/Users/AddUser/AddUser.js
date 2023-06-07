@@ -33,8 +33,6 @@ const AddUser = (props) => {
 			return;
 		}
 
-		console.log(enteredUsername, enteredAge);
-
 		const newUser = {
 			id: Math.random() * 100,
 			username: enteredUsername,
