@@ -7,7 +7,7 @@ const Card = (props) => {
 			className={`${styles.card} ${
 				props.className ? props.className : ''
 			}`}
-      style={props.style}
+			style={props.style}
 		>
 			{' '}
 			{props.children}
