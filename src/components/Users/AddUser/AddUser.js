@@ -1,32 +1,24 @@
-import React, { useState } from 'react';
+import React, { useRef } from 'react';
 import styles from './AddUser.module.css';
 import FromGroup from '../../UI/FormGroup/FromGroup';
 import Button from '../../UI/Button/Button';
 
 const AddUser = (props) => {
-	const [enteredUsername, setEnteredUsername] = useState('');
-	const [enteredAge, setEnteredAge] = useState('');
 
-	const handleChangeUsername = (event) => {
-		setEnteredUsername(event.target.value);
-	};
-
-	const handleChangeAge = (event) => {
-		setEnteredAge(event.target.value);
-	};
-
-	const clearFormFields = () => {
-		setEnteredUsername('');
-		setEnteredAge('');
-	};
+	const nameInputRef = useRef();
+	const ageInputRef = useRef();
 
 	const handleAddUserFormSubmission = (event) => {
+
 		event.preventDefault();
+
+		const enteredUserName = nameInputRef.current.value;
+		const enteredUserAge = ageInputRef.current.value;
 
 		// Validate Empty Fields
 		if (
-			enteredUsername.trim().length === 0 &&
-			enteredAge.trim().length === 0
+			enteredUserName.trim().length === 0 &&
+			enteredUserAge.trim().length === 0
 		) {
 			return props.onError({
 				title: 'Invalid Input',
@@ -35,7 +27,7 @@ const AddUser = (props) => {
 		}
 
 		// Validate Age
-		if (+enteredAge < 1) {
+		if (+enteredUserAge < 1) {
 			return props.onError({
 				title: 'Invalid Age',
 				content: 'Please enter a valid age.',
@@ -44,11 +36,12 @@ const AddUser = (props) => {
 
 		const newUser = {
 			id: Math.random() * 100,
-			username: enteredUsername,
-			age: enteredAge,
+			username: enteredUserName,
+			age: enteredUserAge,
 		};
-		clearFormFields();
 		props.onAddUserFormSubmission(newUser);
+		nameInputRef.current.value = '';
+		ageInputRef.current.value = '';
 	};
 
 	return (
@@ -62,8 +55,7 @@ const AddUser = (props) => {
 					type="text"
 					name="username"
 					id="username"
-					value={enteredUsername}
-					onChange={handleChangeUsername}
+					ref = {nameInputRef}
 				/>
 			</FromGroup>
 			<FromGroup>
@@ -72,8 +64,7 @@ const AddUser = (props) => {
 					type="number"
 					name="age"
 					id="age"
-					value={enteredAge}
-					onChange={handleChangeAge}
+					ref = {ageInputRef}
 				/>
 			</FromGroup>
 			<Button type="submit">Add User</Button>
